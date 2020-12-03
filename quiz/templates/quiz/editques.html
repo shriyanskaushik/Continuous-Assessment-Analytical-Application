@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update question</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'quiz/background.css' %}">
+</head>
+<body>
+    {% include "quiz/navbar.html" %}
+    <div class = "container">
+        <div class = "jumbotron">
+            <h1>Update details and click on Update button:</h1>
+            <form action="/updateques/{{ question.id }}" method="POST">
+                <input type="hidden" name="id" id="id" required maxlength="20" value="{{ question.id }}">
+                {% csrf_token %}
+                <label for="questext">Question Text:</label>
+                <textarea name="Question_Text" id="questext" cols="30" rows="10" class='form-control form-control-lg'>{{ question.Question_Text }}</textarea>
+                <br>
+                <label for="opt1">Option 1:</label>
+                <input type="text" id="opt1" name="Option1" value="{{ question.Option1 }}" class="form-control form-control-lg">
+                <br>
+                <label for="opt2">Option 2:</label>
+                <input type="text" id="opt2" name="Option2" value="{{ question.Option2 }}" class="form-control form-control-lg">
+                <br>
+                <label for="opt3">Option 3:</label>
+                <input type="text" id="opt3" name="Option3" value="{{ question.Option3 }}" class="form-control form-control-lg">
+                <br>
+                <label for="opt4">Option 4:</label>
+                <input type="text" id="opt4" name="Option4" value="{{ question.Option4 }}" class="form-control form-control-lg">
+                <br>
+                <label for="ans">Answer:</label>
+                <input type="text" id="ans" name="Answer" value="{{ question.Answer }}" class="form-control form-control-lg">
+                <br>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

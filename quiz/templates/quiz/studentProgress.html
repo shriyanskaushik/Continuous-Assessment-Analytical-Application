@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'quiz/background.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    {% include "quiz/navbar.html" %}
+    <br><br><h1 class="text-center p-3 mb-2">{{ student.Name }}</h1><br><br>
+    <br><br>
+    <div class="container">
+        <div class="row" >
+            <div class="col-sm-4">
+                <h1 class="text-center">{{ sub1.Name }}</h1>
+                <canvas id="myChart" width="400" height="400"></canvas>
+                <ol>
+                    <table class="table table-striped table-borderless">
+                        <thead class="bg-info">
+                            <th>SNo.</th>
+                            <th>Quiz</th>
+                            <th>Marks</th>
+                            <th>Maximum Marks</th>
+                        </thead>
+                        {% for first in firstsubquizscore %}
+                            <tr>
+                                <td><li></li></td>
+                                <td>
+                                    {{ first.Quiz }}
+                                </td>
+                                <td>{{ first.Marks_Obtained }}</td>
+                                <td>{{ first.Max_Marks }}</td>
+                            </tr>
+                        {% endfor %}    
+                    </table>
+                </ol>
+            </div>
+            <div class="col-sm-4">
+                <h1 class="text-center">{{ sub2.Name }}</h1><br><br><br><br>
+                <canvas id="myChart1" width="400" height="400"></canvas>
+                <ol>
+                    <table class="table table-striped table-borderless">
+                        <thead class="bg-info">
+                            <th>SNo.</th>
+                            <th>Quiz</th>
+                            <th>Marks</th>
+                            <th>Maximum Marks</th>
+                        </thead>
+                        {% for second in secondsubquizscore %}
+                            <tr>
+                                <td><li></li></td>
+                                <td>
+                                    {{ second.Quiz }}
+                                </td>
+                                <td>{{ second.Marks_Obtained }}</td>
+                                <td>{{ second.Max_Marks }}</td>
+                            </tr>
+                        {% endfor %}    
+                    </table>
+                </ol>
+                
+            </div>
+            <div class="col-sm-4">
+                <h1 class="text-center">{{ sub3.Name }}</h1>
+                <canvas id="myChart2" width="400" height="400"></canvas>
+                <ol>
+                    <table class="table table-striped table-borderless">
+                        <thead class="bg-info">
+                            <th>SNo.</th>
+                            <th>Quiz</th>
+                            <th>Marks</th>
+                            <th>Maximum Marks</th>
+                        </thead>
+                        {% for third in thirdsubquizscore %}
+                            <tr>
+                                <td><li></li></td>
+                                <td>
+                                    {{ third.Quiz }}
+                                </td>
+                                <td>{{ third.Marks_Obtained }}</td>
+                                <td>{{ third.Max_Marks }}</td>
+                            </tr>
+                        {% endfor %}    
+                    </table>
+                </ol>
+            </div>                
+        </div>
+    </div>
+    
+    <script>
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var ctx1 = document.getElementById('myChart1').getContext('2d');
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+        
+
+        var state ={	
+            'items':[],
+            'values':[],
+        }
+
+        var state1 ={	
+            'items':[],
+            'values':[],
+        }
+
+        var state2 ={	
+            'items':[],
+            'values':[],
+        }      
+    
+        var dataURL1 = `result/`
+        
+        $.ajax({
+            method:'GET',
+            url:dataURL1,
+            
+            success:function(response){
+                console.log('RESPONSE:', response)
+                console.log('Type', typeof(response))
+                console.log("First",response["firstsubquizscore"])
+                first = response["firstsubquizscore"]
+                second = response["secondsubquizscore"]
+                third = response["thirdsubquizscore"]
+                
+                for (var i in first){
+    
+                    var key = Object.keys(first[i])[0]
+                    var value = Object.values(first[i])[0]
+    
+                    state.items.push(key)
+                    state.values.push(value)
+                }
+    
+                console.log('STATE:', state)
+                buildChart1()
+
+                for (var i in second){
+    
+                    var key1 = Object.keys(second[i])[0]
+                    var value1 = Object.values(second[i])[0]
+
+                    state1.items.push(key1)
+                    state1.values.push(value1)
+                }    
+
+                console.log('STATE1:', state1)
+                buildChart2()   
+
+                for (var i in third){
+    
+                    var key2 = Object.keys(third[i])[0]
+                    var value2 = Object.values(third[i])[0]
+    
+                    state2.items.push(key2)
+                    state2.values.push(value2)
+                }
+    
+                console.log('STATE2:', state2)
+                buildChart3()    
+            }
+
+            
+        })
+        
+        
+        function buildChart1(){
+            var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: state.items,
+                datasets: [{
+                    label: "Result in percentage",
+                    data: state.values,
+                    backgroundColor: 'rgba(9, 156, 189, 1)',
+                    borderColor: 'rgba((9, 156, 189, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        }
+
+        function buildChart2(){
+            var myChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: state1.items,
+                datasets: [{
+                    label: "Result in percentage",
+                    data: state1.values,
+                    backgroundColor: 'rgba(9, 156, 189, 1)',
+                    borderColor: 'rgba((9, 156, 189, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        }
+
+        function buildChart3(){
+            var myChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: state2.items,
+                datasets: [{
+                    label: "Result in percentage",
+                    data: state2.values,
+                    backgroundColor: 'rgba(9, 156, 189, 1)',
+                    borderColor: 'rgba((9, 156, 189, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        }
+        
+    </script>
+</body>
+</html>

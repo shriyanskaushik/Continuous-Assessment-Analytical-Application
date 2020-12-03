@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attempt your quiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'quiz/background.css' %}">
+</head>
+<body>
+    {% include "quiz/navbar.html" %}
+    <div class="bg-image"></div>
+    <div class = "">
+        <div class = "jumbotron">
+            <h1>{{ quiz.Description }}</h1>
+        </div>
+    </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <ol>
+                    {% for q in question %}
+                    <div class = "container">
+                        <div class = "jumbotron">
+                            <b><li>{{ q.Question_Text }}</li></b><br>
+                            <ol type="a">
+                                <li>
+                                    <input type="radio" id="question_{{ q.Option1 }}" name="{{ q.id }}" value="{{ q.Option1 }}" required>
+                                    <label for="question_{{ q.Option1 }}">{{ q.Option1 }}</label>
+                                </li> <br>
+                                <li>
+                                    <input type="radio" id="question_{{ q.Option2 }}" name="{{ q.id }}" value="{{ q.Option2 }}">
+                                    <label for="question_{{ q.Option2 }}">{{ q.Option2 }}</label>
+                                </li> <br>
+                                {% if q.Option3 %}
+                                    <li>
+                                        <input type="radio" id="question_{{ q.Option3 }}" name="{{ q.id }}" value="{{ q.Option3 }}">
+                                        <label for="question_{{ q.Option3 }}">{{ q.Option3 }}</label>
+                                    </li> <br>
+                                {% endif %}
+                                {% if q.Option4 %}
+                                    <li>
+                                        <input type="radio" id="question_{{ q.Option4 }}" name="{{ q.id }}" value="{{ q.Option4 }}">
+                                        <label for="question_{{ q.Option4 }}">{{ q.Option4 }}</label>
+                                    </li> <br>
+                            </ol>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </ol>
+                <div class = "jumbotron">
+                    <div class = "container">
+                        <br> <input type="submit" class="btn btn-primary" value="Submit" name = "submit">
+                    </div>
+                </div>
+            </form>
+        
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'quiz/background.css' %}">
+    <style>
+        #message{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {% include "quiz/navbar.html" %}
+    <div class = "container">
+        <div class = "">
+            <br><br><h1 class="text-center p-3 mb-2">Quizes</h1><br><br>
+            <br><br>
+            <ol>
+            <table class="table table-striped table-borderless">
+                <thead class="bg-info">
+                    <th>SNo.</th>
+                    <th>Quiz Name</th>
+                    <th>Date of publish</th>
+                </thead>
+                {% for q in quiz_list %}
+                    <tr>
+                        <td><li></li></td>
+                        <td>
+                            <a href="{% url 'result' q.id %}">{{ q.Description }}</a>
+                        </td>
+                        <td>{{ q.Date_of_publish }}</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+            </ol>
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert" id="message">{{ message }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ quiz.QuizID }} - Questions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'quiz/background.css' %}">
+</head>
+<body>
+    {% include "quiz/navbar.html" %}
+    <div class = "container">
+        <div class = "">
+            <br><br><br>
+            <h1 class="text-center p-3 mb-2 bg-secondary text-white">{{ quiz.QuizID }}</h1><br><br>
+            <ol>
+            <table class="table table-striped table-bordered">
+                <thead class="bg-info">
+                    <tr>
+                        <th>Sno</th>
+                        <th>Question</th>
+                        <th>Option1</th>
+                        <th>Option2</th>
+                        <th>Option3</th>
+                        <th>Option4</th>
+                        <th>Answer</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                
+                {% for q in questionlist %}
+                    <tr>
+                        <td><li></li></td>
+                        <td>{{ q.Question_Text }}</td>
+                        <td>{{ q.Option1 }}</td>
+                        <td>{{ q.Option2 }}</td>
+                        <td>{{ q.Option3 }}</td>
+                        <td>{{ q.Option4 }}</td>
+                        <td>{{ q.Answer }}</td>
+                        <td>
+                            <a href="/editques/{{ q.id }}"><span class="btn btn-outline-primary">Edit</span></a><br><br>
+                            <a href="/deleteques/{{ q.id }}" class="btn btn-outline-secondary">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+            </table>
+            </ol>
+        </div>
+    </div>
+    <div class="container">
+        <a href="/addquestions/{{ quizid.id }}" class="btn btn-primary btn-lg btn-block">Add more questions</a>
+    </div>
+</body>
+</html>

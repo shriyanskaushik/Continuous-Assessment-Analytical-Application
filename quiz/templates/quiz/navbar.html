@@ -1,0 +1,124 @@
+{% load static %}
+  <style>
+    body {
+    	margin-top: 0;
+
+    	font-size: 15px;
+    	font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
+    	background-color: #E5E9ED;
+    }
+    .navbar-default .navbar-nav > li > a{
+        padding: 15px 15px;
+
+
+    }
+
+    /*.navbar-default{
+        padding: 10px 0;
+        background-color: rgba(255, 255, 255, 0.95);
+        border-color: transparent;
+        box-shadow: 0 0px 13px rgba(0,0,0,.2);
+        align-content: center;
+    }*/
+    .navbar {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0px 13px rgba(0,0,0,.2);
+      border-color: transparent;
+      margin-bottom: 35px;
+      overflow: auto;
+    }
+
+    /* Navbar links */
+    .navbar a {
+      float: left;
+      text-align: center;
+      padding: 15px;
+      color: white;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    /* Navbar links on mouse-over */
+    .navbar a:hover {
+      background-color: #1f91c2;
+    }
+
+    /* Current/active navbar link */
+    .active {
+      background-color: #27A2D7;
+
+    }
+
+    /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+    @media screen and (max-width: 720px) {
+      .navbar a {
+        float: none;
+        display: block;
+      }
+    }
+      .button {
+          background-color: #27A2D7;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 15px;
+          align-self: center;
+      }
+      .button {border-radius: 4px;}
+
+      #btn1 , #btn2{
+          display:inline-block;
+      }
+
+      #btns{
+          text-align: center;
+      }
+      
+  #right{
+    color: #737b87;
+    margin-right: 20px;
+
+  }
+  </style>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+  <div class="container">
+
+  <span class="navbar-brand" id="right">Welcome</span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        
+        <a class="active" href="{% url 'index' %}"><i class="fa fa-fw fa-home"></i> Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+    </ul>
+    <span class="navbar-text" id="right">
+      <i class="fa fa-fw fa-user"></i>
+      Hello, {{ request.user }}
+    </span>
+    <a href="{% url 'logout' %}" class=" my-2 my-sm-0 button">Logout</a>
+  </div>
+  
+</div>
+</nav>
+<br><br>

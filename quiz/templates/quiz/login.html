@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'quiz/login.css' %}">
+</head>
+<body>
+    <div class="center">
+    <h1>Login</h1>
+    <p>
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>
+            <label for="id"><h3>Username</h3></label>
+            </p>
+            <p>
+            <input type="text" id="id" placeholder="Enter your username" name="username" required>
+            </p>
+            <p>
+            <label for="password"><h3>Password</h3></label>
+            </p>
+            <p>
+            <input type="password" id="password" placeholder="Enter your password" name="password" required>
+            </p><br><br>
+            <p>
+                {% for message in messages %}
+                    {{message}}
+                {% endfor %}
+            </p>
+            <p>
+                <input type="submit" class="btn btn-primary" value="Login" >
+            </p>
+            
+        </form>
+    </p>
+    </div>
+</body>
+</html>

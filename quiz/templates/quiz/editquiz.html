@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update quiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'quiz/background.css' %}">
+</head>
+<body>
+    {% include "quiz/navbar.html" %}
+    <div class = "container">
+        <div class = "jumbotron">
+            <h1>Update details and click on Update button:</h1>
+            
+            <form action="/updatequiz/{{ quiz.id }}" method="POST">
+                <input type="hidden" name="id" id="id" required maxlength="20" value="{{ quiz.id }}">
+                <h3>Fill all the fields as mentioned in help text</h3>
+                {% csrf_token %}
+                <label for="quiztext">Quiz:</label>
+                <input type="text" name="Description" id="quiztext" class='form-control form-control-lg' value="{{ quiz.Description }}">
+                <br>
+                <label for="starting time">Starting Time:</label>
+                <input type="text" name="Starting_Time" id="starting time" class='form-control form-control-lg' value="{{ quiz.Starting_Time }}">
+                <small>YYYY-MM-DD hh:mm eg: 2020-01-01 10:00(in 24 hours format)</small>
+                <br>
+                <label for="closing time">Closing Time:</label>
+                <input type="text" name="Ending_Time" id="closing time" class='form-control form-control-lg' value="{{ quiz.Ending_Time }}">
+                <small>YYYY-MM-DD hh:mm eg: 2020-01-01 10:00(in 24 hours format)</small>
+                <br>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
